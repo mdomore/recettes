@@ -35,12 +35,23 @@ def home():
 @login_required
 def week():
     if request.method == 'POST':
-        nb_of_meal = int(request.form.get('nbmeal'))
+        dej = []
+        din = []
+        nbdej = int(request.form.get('nbdej'))
+        nbdin = int(request.form.get('nbdin'))
         meals = Meal.query.all()
 
-        meal_list = random.sample(meals, nb_of_meal)
+        for meal in meals:
+            for tag in meal.tags:
+                if tag.value == 'dejeuner':
+                    dej.append(meal)
+                if tag.value == 'diner':
+                    din.append(meal)
 
-        return render_template('week.html', user=current_user, meal_list=meal_list)
+        dej_list = random.sample(dej, nbdej)
+        din_list = random.sample(din, nbdin)
+
+        return render_template('week.html', user=current_user, dej_list=dej_list, din_list=din_list)
 
     return render_template('week.html', user=current_user)
 

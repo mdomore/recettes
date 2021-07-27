@@ -2,32 +2,57 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 <h1 align="center">Générateur</h1>
-{% if meal_list is defined %}
-    {% for meal in meal_list %}
-        <ul class="list-group">
-            <li class="list-group-item">{{ meal.data }}</li>
-        </ul>
-    {% endfor %}
+{% if dej_list is defined or din_list is defined %}
+    <div class="row">
+    {% if dej_list is defined %}
+        <div class="col">
+        <h5>Déjeuner(s)</h5>
+        {% for dej in dej_list %}
+            <ul class="list-group">
+                <li class="list-group-item">{{ dej.data }}</li>
+            </ul>
+        {% endfor %}
+        </div>
+    {% endif %}
+    {% if din_list is defined %}
+        <div class="col">
+        <h5>Diner(s)</h5>
+        {% for din in din_list %}
+            <ul class="list-group">
+                <li class="list-group-item">{{ din.data }}</li>
+            </ul>
+        {% endfor %}
+        </div>
+    {% endif %}
 {% else %}
     <form method="POST">
         <div class="form-group">
-            <label for="nbmeal">Nombre de repas</label>
-            <select class="form-control" id="nbmeal" name="nbmeal">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-            </select>
+            <div class="row">
+                <div class="col">
+                    <label for="nbdej">Nombre de dejeuner(s)</label>
+                    <select class="form-control" id="nbdej" name="nbdej">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="nbdin">Nombre de diner(s)</label>
+                    <select class="form-control" id="nbdin" name="nbdin">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+                </div>
+            </div>
             <br />
             <div>
                 <button type="submit" class="btn btn-primary">Générer</button>

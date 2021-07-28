@@ -2,19 +2,9 @@
 {% block title %}Home{% endblock %}
 {% block content %}
     <h1 align="center">Liste des repas</h1>
-    <form method="POST">
-        <h4>Repas</h4>
-        <textarea name="meal" id="meal" class="form-control"></textarea>
-        <br />
-        <input class="form-control form-control-sm" name='tags' id='tags' type="text" placeholder="tags">
-        <br />
-        <div align="center">
-            <button type="submit" class="btn btn-primary">Add Meal</button>
-        </div>
-    </form>
     <ul class='list-group list-group-flush' id="meals">
         {% for meal in user.meals %}
-        <li class="list-group-item text-uppercase"><h5>{{ meal.data }}</h5>
+        <li class="list-group-item text-uppercase">{{ meal.data }}
             {% for tag in meal.tags %}
                 <span class="badge badge-secondary badge-info">#{{ tag.value }}
                     <button type="button" style="background-color:rgb(23, 162, 184);border: none;;" onClick="deleteTag({{ tag.id }})">

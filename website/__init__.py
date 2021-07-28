@@ -2,6 +2,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 db = SQLAlchemy()
 DB_NAME = 'database.db'
@@ -30,6 +32,11 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
 
+    admin = Admin(app)
+    admin.add_view(ModelView(User, db.session))
+    admin.add_view(ModelView(Meal, db.session))
+    admin.add_view(ModelView(Tag, db.session))
+
     return app
 
 
@@ -37,3 +44,4 @@ def create_database(app):
     if not path.exists('website/' + DB_NAME):
         db.create_all(app=app)
         print('Created database!')
+

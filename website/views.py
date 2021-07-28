@@ -11,22 +11,22 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    if request.method == 'POST':
-        meal = request.form.get('meal')
-        tags = request.form.get('tags').split()
-
-        if len(meal) < 1:
-            flash('Meal is too short!', category='error')
-        else:
-            new_meal = Meal(data=meal, user_id=current_user.id)
-            if len(tags) < 1:
-                flash('At least one tag is needed', category='error')
-            else:
-                for tag in tags:
-                    new_meal.tags.append(Tag(value=tag))
-            db.session.add(new_meal)
-            db.session.commit()
-            flash('Meal added', category='success')
+    # if request.method == 'POST':
+    #     meal = request.form.get('meal')
+    #     tags = request.form.get('tags').split()
+    #
+    #     if len(meal) < 1:
+    #         flash('Meal is too short!', category='error')
+    #     else:
+    #         new_meal = Meal(data=meal, user_id=current_user.id)
+    #         if len(tags) < 1:
+    #             flash('At least one tag is needed', category='error')
+    #         else:
+    #             for tag in tags:
+    #                 new_meal.tags.append(Tag(value=tag))
+    #         db.session.add(new_meal)
+    #         db.session.commit()
+    #         flash('Meal added', category='success')
 
     return render_template('home.html', user=current_user)
 

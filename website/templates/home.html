@@ -3,18 +3,12 @@
 {% block content %}
     <h1 align="center">Liste des repas</h1>
     <ul class='list-group list-group-flush' id="meals">
-        {% for meal in user.meals %}
-        <li class="list-group-item text-uppercase">{{ meal.data }}
+        {% for meal in meals %}
+        <li class="list-group-item text-uppercase">{{ meal.name }}
             {% for tag in meal.tags %}
                 <span class="badge badge-secondary badge-info">#{{ tag.value }}
-                    <button type="button" style="background-color:rgb(23, 162, 184);border: none;;" onClick="deleteTag({{ tag.id }})">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </span>
             {% endfor %}
-            <button type="button" class="close" onClick="deleteMeal({{ meal.id }})">
-                <span aria-hidden="true">&times;</span>
-            </button>
         </li>
         {% endfor%}
     </ul>

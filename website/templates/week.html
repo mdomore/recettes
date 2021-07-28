@@ -9,7 +9,7 @@
         <h5>Déjeuner(s)</h5>
         {% for dej in dej_list %}
             <ul class="list-group">
-                <li class="list-group-item">{{ dej.data }}</li>
+                <li class="list-group-item">{{ dej.name }}</li>
             </ul>
         {% endfor %}
         </div>
@@ -19,7 +19,7 @@
         <h5>Diner(s)</h5>
         {% for din in din_list %}
             <ul class="list-group">
-                <li class="list-group-item">{{ din.data }}</li>
+                <li class="list-group-item">{{ din.name }}</li>
             </ul>
         {% endfor %}
         </div>

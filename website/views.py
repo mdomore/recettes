@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, request, flash, jsonify
-from flask_login import login_required, current_user
+from flask import Blueprint, render_template, request, jsonify
 from .models import Meal, Tag
 from . import db
 import json
@@ -9,30 +8,12 @@ views = Blueprint('views', __name__)
 
 
 @views.route('/', methods=['GET', 'POST'])
-@login_required
 def home():
-    # if request.method == 'POST':
-    #     meal = request.form.get('meal')
-    #     tags = request.form.get('tags').split()
-    #
-    #     if len(meal) < 1:
-    #         flash('Meal is too short!', category='error')
-    #     else:
-    #         new_meal = Meal(data=meal, user_id=current_user.id)
-    #         if len(tags) < 1:
-    #             flash('At least one tag is needed', category='error')
-    #         else:
-    #             for tag in tags:
-    #                 new_meal.tags.append(Tag(value=tag))
-    #         db.session.add(new_meal)
-    #         db.session.commit()
-    #         flash('Meal added', category='success')
-
-    return render_template('home.html', user=current_user)
+    meals = Meal.query.all()
+    return render_template('home.html', meals=meals)
 
 
 @views.route('/week', methods=['GET', 'POST'])
-@login_required
 def week():
     if request.method == 'POST':
         dej = []
@@ -43,7 +24,7 @@ def week():
 
         for meal in meals:
             for tag in meal.tags:
-                if tag.value == 'dejeuner':
+                if tag.value == 'déjeuner':
                     dej.append(meal)
                 if tag.value == 'diner':
                     din.append(meal)
@@ -51,9 +32,9 @@ def week():
         dej_list = random.sample(dej, nbdej)
         din_list = random.sample(din, nbdin)
 
-        return render_template('week.html', user=current_user, dej_list=dej_list, din_list=din_list)
+        return render_template('week.html', dej_list=dej_list, din_list=din_list)
 
-    return render_template('week.html', user=current_user)
+    return render_template('week.html')
 
 
 @views.route('/delete-meal', methods=['POST'])
@@ -62,9 +43,8 @@ def delete_meal():
     mealId = meal['mealId']
     meal = Meal.query.get(mealId)
     if meal:
-        if meal.user_id == current_user.id:
-            db.session.delete(meal)
-            db.session.commit()
+        db.session.delete(meal)
+        db.session.commit()
 
     return jsonify({})
 

@@ -18,23 +18,27 @@ def week():
     if request.method == 'POST':
         dej = []
         din = []
-        nbdej = int(request.form.get('nbdej'))
-        nbdin = int(request.form.get('nbdin'))
         meals = Meal.query.all()
-
-        for meal in meals:
-            for tag in meal.tags:
-                if tag.value == 'déjeuner':
-                    dej.append(meal)
-                if tag.value == 'diner':
-                    din.append(meal)
-
-        dej_list = random.sample(dej, nbdej)
-        din_list = random.sample(din, nbdin)
+        print(request.form)
+        # nbdej = int(request.form.get('nbdej'))
+        # nbdin = int(request.form.get('nbdin'))
+        #
+        #
+        # for meal in meals:
+        #     for tag in meal.tags:
+        #         if tag.value == 'déjeuner':
+        #             dej.append(meal)
+        #         if tag.value == 'diner':
+        #             din.append(meal)
+        #
+        # dej_list = random.sample(dej, nbdej)
+        # din_list = random.sample(din, nbdin)
 
         return render_template('week.html', dej_list=dej_list, din_list=din_list)
 
-    return render_template('week.html')
+    tags = Tag.query.all()
+    tags = [ tag for tag in [tag for tag in tags if (tag.value != 'déjeuner')] if (tag.value != 'diner')]
+    return render_template('week.html', tags=tags)
 
 
 @views.route('/delete-meal', methods=['POST'])

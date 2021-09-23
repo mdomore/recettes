@@ -1,3 +1,4 @@
+<script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
@@ -26,40 +27,199 @@
     {% endif %}
 {% else %}
     <form method="POST">
-        <div class="form-group">
-            <div class="row">
-                <div class="col">
-                    <label for="nbdej">Nombre de dejeuner(s)</label>
-                    <select class="form-control" id="nbdej" name="nbdej">
-                        <option selected value="0">Déjeuner(s)</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <div>
+                    <input type="checkbox" id="lundi_midi" name="lundi_midi" onclick="functionLundiMidi()" checked>
+                    <label for="lundi_midi">Lundi midi</label>
+                    <ul id="lundi_midi_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="lundi_midi {{ tag.id }}" name="lundi_midi {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
                 </div>
-                <div class="col">
-                    <label for="nbdin">Nombre de diner(s)</label>
-                    <select class="form-control" id="nbdin" name="nbdin">
-                        <option selected value="0">Diner(s)</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
+                <div>
+                    <input type="checkbox" id="mardi_midi" name="mardi_midi" onclick="functionMardiMidi()" checked>
+                    <label for="mardi_midi">Mardi midi</label>
+                    <ul id="mardi_midi_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="mardi_midi {{ tag.id }}" name="mardi_midi {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" id="mercredi_midi" name="mercredi_midi" onclick="functionMercrediMidi()" checked>
+                    <label for="mercredi_midi">Mercredi midi</label>
+                    <ul id="mercredi_midi_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="mercredi_midi {{ tag.id }}" name="mercredi_midi {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" id="jeudi_midi" name="jeudi_midi" onclick="functionJeudiMidi()" checked>
+                    <label for="jeudi_midi">Jeudi midi</label>
+                    <ul id="jeudi_midi_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="jeudi_midi {{ tag.id }}" name="jeudi_midi {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" id="vendredi_midi" name="vendredi_midi" onclick="functionVendrediMidi()" checked>
+                    <label for="vendredi_midi">Vendredi midi</label>
+                    <ul id="vendredi_midi_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="vendredi_midi {{ tag.id }}" name="vendredi_midi {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" id="samedi_midi" name="samedi_midi" onclick="functionSamediMidi()" checked>
+                    <label for="samedi_midi">Samedi midi</label>
+                    <ul id="samedi_midi_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="samedi_midi {{ tag.id }}" name="samedi_midi {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" id="dimanche_midi" name="dimanche_midi" onclick="functionDimancheMidi()" checked>
+                    <label for="dimanche_midi">Dimanche midi</label>
+                    <ul id="dimanche_midi_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="dimanche_midi {{ tag.id }}" name="dimanche_midi {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <br />
-            <div>
-                <button type="submit" class="btn btn-primary">Générer</button>
+            <div class="col">
+                <div>
+                    <input type="checkbox" id="lundi_soir" name="lundi_soir" onclick="functionLundiSoir()" checked>
+                    <label for="lundi_soir">Lundi soir</label>
+                    <ul id="lundi_soir_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="lundi_soir {{ tag.id }}" name="lundi_soir {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" id="mardi_soir" name="mardi_soir" onclick="functionMardiSoir()" checked>
+                    <label for="mardi_soir">Mardi soir</label>
+                    <ul id="mardi_soir_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="mardi_soir {{ tag.id }}" name="mardi_soir {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" id="mercredi_soir" name="mercredi_soir" onclick="functionMercrediSoir()" checked>
+                    <label for="mercredi_soir">Mercredi soir</label>
+                    <ul id="mercredi_soir_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="mercredi_soir {{ tag.id }}" name="mercredi_soir {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" id="jeudi_soir" name="jeudi_soir" onclick="functionJeudiSoir()" checked>
+                    <label for="jeudi_soir">Jeudi soir</label>
+                    <ul id="jeudi_soir_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="jeudi_soir {{ tag.id }}" name="jeudi_soir {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" id="vendredi_soir" name="vendredi_soir" onclick="functionVendrediSoir()" checked>
+                    <label for="vendredi_soir">Vendredi soir</label>
+                    <ul id="vendredi_soir_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="vendredi_soir {{ tag.id }}" name="vendredi_soir {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" id="samedi_soir" name="samedi_soir" onclick="functionSamediSoir()" checked>
+                    <label for="samedi_soir">Samedi soir</label>
+                    <ul id="samedi_soir_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="samedi_soir {{ tag.id }}" name="samedi_soir {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" id="dimanche_soir" name="day" value="7,1" onclick="functionDimancheSoir()" checked>
+                    <label for="dimanche_soir">Dimanche soir</label>
+                    <ul id="dimanche_soir_tags" style="display:block">
+                        <li class="list-group-item">
+                        {% for tag in tags %}
+                            <span class="badge badge-secondary badge-info">#{{ tag.value }}
+                                <input type="checkbox" id="dimanche_soir {{ tag.id }}" name="dimanche_soir {{ tag.id }}">
+                            </span>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Générer</button>
+        </div>
+    </div>
     </form>
 {% endif %}
 {% endblock %}
